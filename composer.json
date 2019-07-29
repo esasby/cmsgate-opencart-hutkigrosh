@@ -20,8 +20,8 @@
   },
   "require": {
     "php": ">= 5.6.0",
-    "esas/cmsgate-hutkigrosh-lib": "v0.9.0",
-    "esas/cmsgate-opencart-lib": "v0.9.0"
+    "esas/cmsgate-hutkigrosh-lib": "v1.0.0",
+    "esas/cmsgate-opencart-lib": "v1.0.0"
   },
   "autoload": {
     "psr-4": {
