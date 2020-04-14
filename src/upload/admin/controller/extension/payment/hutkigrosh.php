@@ -12,6 +12,6 @@ class ControllerExtensionPaymentHutkiGrosh extends AdminControllerExtensionPayme
      */
     public function index()
     {
-        $this->showSettings();
+        parent::index();
     }
 }

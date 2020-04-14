@@ -1,31 +1,34 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-use esas\cmsgate\controllers\ControllerHutkigroshAddBill;
-use esas\cmsgate\controllers\ControllerHutkigroshAlfaclick;
-use esas\cmsgate\controllers\ControllerHutkigroshCompletionPage;
-use esas\cmsgate\controllers\ControllerHutkigroshNotify;
+use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAddBill;
+use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAlfaclick;
+use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshCompletionPage;
+use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshNotify;
+use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\opencart\CatalogControllerExtensionPayment;
-use esas\cmsgate\Registry as HutkigroshRegistry;
+use esas\cmsgate\RegistryHutkigroshOpencart;
 use esas\cmsgate\utils\Logger;
-use esas\cmsgate\utils\OpencartUtils;
-use esas\cmsgate\utils\RequestParams;
-use esas\cmsgate\wrappers\OrderWrapperOpencart;
+use esas\cmsgate\view\ViewBuilderOpencart;
+use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
 
 require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/system/library/esas/cmsgate/init.php');
 
 class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPayment
 {
-    const BASE_PATH = 'extension/payment/hutkigrosh';
-
     public function index()
     {
-        $data['sandbox'] = HutkigroshRegistry::getRegistry()->getConfigWrapper()->isSandbox();
-        $data['action'] = $this->url->link(self::BASE_PATH . '/pay');
-        $data['continue'] = $this->url->link('checkout/success');
+        return parent::index();
+    }
 
-        $this->i18n($data, ['text_sandbox', 'button_confirm', 'text_loading']);
-        return $this->load->view($this->getView("hutkigrosh"), $data);
+    /**
+     * @param $data
+     * @param $orderWrapper
+     * @throws Throwable
+     */
+    protected function addPaySystemIndexData(&$data, $orderWrapper)
+    {
+        $data['confirmOrderForm'] = ViewBuilderOpencart::elementConfirmOrderForm($orderWrapper);
     }
 
 
@@ -34,24 +37,19 @@ class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPay
         try {
             $orderId = $this->session->data['order_id'];
             if (!isset($orderId)) {
-                $this->redirect($this->url->link('checkout/checkout'));
+                $this->response->redirect(SystemSettingsWrapperOpencart::getInstance()->linkCatalogCheckout());
                 return false;
             }
-            $orderWrapper = new OrderWrapperOpencart($orderId, $this->registry);
+            $orderWrapper = RegistryHutkigroshOpencart::getRegistry()->getOrderWrapper($orderId);
             // проверяем, привязан ли к заказу billid, если да,
             // то счет не выставляем, а просто прорисовываем старницу
             if (empty($orderWrapper->getExtId())) {
                 $controller = new ControllerHutkigroshAddBill();
                 $controller->process($orderWrapper);
             }
-
-            $controller = new ControllerHutkigroshCompletionPage(
-                $this->url->link(self::BASE_PATH . '/alfaclick'),
-                $this->registry->get("url")->link(self::BASE_PATH . '/pay'));
+            $controller = new ControllerHutkigroshCompletionPage();
             $completionPanel = $controller->process($orderId);
-
             $data['completionPanel'] = $completionPanel;
-
             $this->document->setTitle($this->language->get('heading_title'));
             $this->addCommon($data);
             $data['button_continue_link'] = $this->url->link('checkout/success');
@@ -61,11 +59,9 @@ class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPay
                     $this->getView("hutkigrosh_checkout_success"), $data));
 
         } catch (Throwable $e) {
-            Logger::getLogger("payment")->error("Exception:", $e);
-            return $this->failure($e->getMessage());
+            return $this->redirectFailure("pay", $e);
         } catch (Exception $e) { // для совместимости с php 5
-            Logger::getLogger("payment")->error("Exception:", $e);
-            return $this->failure($e->getMessage());
+            return $this->redirectFailure("pay", $e);
         }
     }
 
@@ -73,7 +69,7 @@ class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPay
     {
         try {
             $controller = new ControllerHutkigroshAlfaclick();
-            $controller->process($this->request->post[RequestParams::BILL_ID], $this->request->post[RequestParams::PHONE]);
+            $controller->process($this->request->post[RequestParamsHutkigrosh::BILL_ID], $this->request->post[RequestParamsHutkigrosh::PHONE]);
         } catch (Throwable $e) {
             Logger::getLogger("alfaclick")->error("Exception: ", $e);
         } catch (Exception $e) { // для совместимости с php 5
@@ -84,7 +80,7 @@ class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPay
     public function notify()
     {
         try {
-            $billId = $this->request->get[RequestParams::PURCHASE_ID];
+            $billId = $this->request->get[RequestParamsHutkigrosh::PURCHASE_ID];
             $controller = new ControllerHutkigroshNotify();
             $controller->process($billId);
         } catch (Throwable $e) {
@@ -93,6 +89,7 @@ class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPay
             Logger::getLogger("notify")->error("Exception:", $e);
         }
     }
+
 
 
 }

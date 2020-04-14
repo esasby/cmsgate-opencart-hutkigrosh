@@ -8,6 +8,8 @@
 
 namespace esas\cmsgate\view\client;
 
+use esas\cmsgate\hutkigrosh\view\client\CompletionPanel;
+
 class CompletionPanelOpencart extends CompletionPanel
 {
     public function getCssClass4MsgSuccess()

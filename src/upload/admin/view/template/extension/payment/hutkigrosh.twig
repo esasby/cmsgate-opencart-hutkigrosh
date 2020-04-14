@@ -17,17 +17,10 @@
     </div>
 
     <div class="container-fluid">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ heading_title }}</h3>
-            </div>
-            <div class="panel-body">
-                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-webpay"
-                      class="form-horizontal">
-                    {{ configForm.generate() }}
-                </form>
-            </div>
-        </div>
+        {% if messages|length %}
+            {{ messages }}
+        {% endif %}
+        {{ configForm.generate() }}
     </div>
 </div>
 {{ footer }}

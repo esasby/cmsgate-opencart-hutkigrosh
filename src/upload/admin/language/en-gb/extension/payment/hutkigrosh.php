@@ -7,7 +7,6 @@ $_['text_payment'] = 'Payment';
 $_['text_success'] = 'Module settings have been updated!';
 
 
-$_['text_test'] = 'Sandbox mode:';
 $_['text_status'] = 'Status:';
 $_['text_enabled'] = 'Enabled';
 $_['text_disabled'] = 'Disabled';

@@ -8,15 +8,15 @@
 
 namespace esas\cmsgate;
 
-
-use esas\cmsgate\lang\LocaleLoaderOpencart;
-use esas\cmsgate\lang\TranslatorHutkigrosh;
+use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
+use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
+use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
+use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
+use esas\cmsgate\hutkigrosh\view\admin\ManagedFieldsHutkigrosh;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\view\admin\ConfigFormOpencart;
-use esas\cmsgate\view\admin\ManagedFieldsHutkigrosh;
-use esas\cmsgate\wrappers\ConfigWrapperHutkigrosh;
-use esas\cmsgate\wrappers\OrderWrapper;
-use esas\cmsgate\wrappers\OrderWrapperOpencart;
 use esas\cmsgate\view\client\CompletionPanelOpencart;
+use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
 
 class RegistryHutkigroshOpencart extends RegistryHutkigrosh
 {
@@ -24,45 +24,56 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
 
     /**
      * RegistryOpencart constructor.
-     * @param $registry
+     * @param $opencartRegistry
      */
     public function __construct($opencartRegistry)
     {
         $this->opencartRegistry = $opencartRegistry;
+        $this->cmsConnector = new CmsConnectorOpencart($opencartRegistry);
+    }
+
+    /**
+     * Переопделение для упрощения типизации
+     * @return RegistryHutkigroshOpencart
+     */
+    public static function getRegistry()
+    {
+        return parent::getRegistry();
+    }
+
+    /**
+     * Переопделение для упрощения типизации
+     * @return ConfigFormOpencart
+     */
+    public function getConfigForm()
+    {
+        return parent::getConfigForm();
+    }
+
+    /**
+     * @return SystemSettingsWrapperOpencart
+     */
+    public function getSystemSettingsWrapper()
+    {
+        return parent::getSystemSettingsWrapper();
     }
 
     public function createConfigWrapper()
     {
-        $configStorageOpencart = new ConfigStorageOpencart($this->opencartRegistry);
-        return new ConfigWrapperHutkigrosh($configStorageOpencart);
+        return new ConfigWrapperHutkigrosh();
     }
 
     public function createTranslator()
     {
-        $localeLoader = new LocaleLoaderOpencart($this->opencartRegistry);
-        return new TranslatorHutkigrosh($localeLoader);
-    }
-
-
-
-    /**
-     * По локальному номеру счета (номеру заказа) возвращает wrapper
-     * @param $orderId
-     * @return OrderWrapper
-     */
-    public function getOrderWrapper($orderNumber)
-    {
-        return new OrderWrapperOpencart($orderNumber, $this->opencartRegistry);
+        return new TranslatorHutkigrosh();
     }
 
     public function createConfigForm()
     {
         $managedFieldsHutkigrosh = new ManagedFieldsHutkigrosh();
         $managedFieldsHutkigrosh->addAllExcept([
-            ConfigFieldsHutkigrosh::shopName(),
-            ConfigFieldsHutkigrosh::paymentMethodName(),
-            ConfigFieldsHutkigrosh::paymentMethodDetails()]);
-        return new ConfigFormOpencart($managedFieldsHutkigrosh, $this->opencartRegistry);
+            ConfigFieldsHutkigrosh::shopName()]);
+        return $this->cmsConnector->createCommonConfigForm($managedFieldsHutkigrosh);
     }
 
     public function getCompletionPanel($orderWrapper)
@@ -78,4 +89,18 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
     {
         return $this->opencartRegistry;
     }
+
+    function getUrlAlfaclick($orderId)
+    {
+        return SystemSettingsWrapperOpencart::getInstance()->linkCatalogExtension("alfaclick");
+    }
+
+    function getUrlWebpay($orderId)
+    {
+        $orderWrapper = RegistryHutkigroshOpencart::getRegistry()->getOrderWrapper($orderId);
+        return SystemSettingsWrapperOpencart::getInstance()->linkCatalogExtension("pay")
+            . "&" . RequestParamsHutkigrosh::ORDER_NUMBER . "=" . $orderWrapper->getOrderNumber()
+            . "&" . RequestParamsHutkigrosh::BILL_ID . "=" . $orderWrapper->getExtId();
+    }
+
 }

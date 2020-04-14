@@ -5,5 +5,5 @@ use esas\cmsgate\RegistryHutkigroshOpencart;
 
 
 (new CmsPlugin(dirname(dirname(__FILE__)) . '/vendor', dirname(dirname(dirname(__FILE__)))))
-    ->setRegistry(new RegistryHutkigroshOpencart($registry))
+    ->setRegistry(new RegistryHutkigroshOpencart(isset($registry) ? $registry : $this->registry))
     ->init();

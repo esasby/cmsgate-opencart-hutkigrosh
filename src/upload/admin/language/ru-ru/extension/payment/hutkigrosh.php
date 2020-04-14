@@ -6,7 +6,6 @@ $_['text_hutkigrosh'] = '<img src="view/image/payment/hgrosh.png" alt="Расч�
 $_['text_payment'] = 'Оплата';
 $_['text_success'] = 'Настройки модуля обновлены!';
 
-$_['text_test'] = 'Режим песочницы:';
 $_['text_status'] = 'Статус:';
 $_['text_enabled'] = 'Включено';
 $_['text_disabled'] = 'Отключено';
