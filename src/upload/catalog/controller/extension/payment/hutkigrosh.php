@@ -5,14 +5,14 @@ use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAddBill;
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAlfaclick;
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshCompletionPage;
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshNotify;
+use esas\cmsgate\hutkigrosh\RegistryHutkigroshOpencart;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\opencart\CatalogControllerExtensionPayment;
-use esas\cmsgate\RegistryHutkigroshOpencart;
 use esas\cmsgate\utils\Logger;
 use esas\cmsgate\view\ViewBuilderOpencart;
 use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
 
-require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/system/library/esas/cmsgate/init.php');
+require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/system/library/esas/cmsgate/hutkigrosh/init.php');
 
 class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPayment
 {

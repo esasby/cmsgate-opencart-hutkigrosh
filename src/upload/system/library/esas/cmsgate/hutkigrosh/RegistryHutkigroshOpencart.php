@@ -6,16 +6,15 @@
  * Time: 11:22
  */
 
-namespace esas\cmsgate;
+namespace esas\cmsgate\hutkigrosh;
 
-use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
+use esas\cmsgate\CmsConnectorOpencart;
 use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
-use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\admin\ManagedFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\view\admin\ConfigFormOpencart;
-use esas\cmsgate\view\client\CompletionPanelOpencart;
+use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigroshOpencart;
 use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
 
 class RegistryHutkigroshOpencart extends RegistryHutkigrosh
@@ -78,7 +77,7 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
 
     public function getCompletionPanel($orderWrapper)
     {
-        $completionPanel = new CompletionPanelOpencart($orderWrapper);
+        $completionPanel = new CompletionPanelHutkigroshOpencart($orderWrapper);
         return $completionPanel;
     }
 

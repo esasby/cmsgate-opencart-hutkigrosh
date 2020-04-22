@@ -6,11 +6,9 @@
  * Time: 14:11
  */
 
-namespace esas\cmsgate\view\client;
+namespace esas\cmsgate\hutkigrosh\view\client;
 
-use esas\cmsgate\hutkigrosh\view\client\CompletionPanel;
-
-class CompletionPanelOpencart extends CompletionPanel
+class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigrosh
 {
     public function getCssClass4MsgSuccess()
     {
