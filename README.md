@@ -11,7 +11,7 @@
 
 ### Инструкция по установке:
 1. Создайте резервную копию вашего магазина и базы данных
-1. Установите модуль [cmsgate-opencart-hutkigrosh.ocmod.zip](https://bitbucket.org/esasby/cmsgate-opencart-hutkigrosh/src/master/cmsgate-opencart-hutkigrosh.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
+1. Установите модуль [cmsgate-opencart-hutkigrosh.ocmod.zip](https://bitbucket.org/esasby/cmsgate-opencart-epos/src/master/cmsgate-opencart-epos.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
 1. Напротив модуля ХуткiГрош нажмите «Установить»
 
 ## Инструкция по настройке
