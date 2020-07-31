@@ -1,9 +1,9 @@
 ## Модуль интеграции с CMS OpenCart  (v2.3, v3.0)
 
 Данный модуль обеспечивает взаимодействие между интернет-магазином на базе CMS Opencart и сервисом платежей [ХуткiГрош](www.hutkigrosh.by)
-  * Модуль интеграции для версии [OpenCart 1.5.x](https://github.com/esasby/hutkigrosh-opencart1.5-module)
-  * Модуль интеграции для версии [OpenCart 2.1.x](https://github.com/esasby/hutkigrosh-opencart2.1-module)
-  * Модуль интеграции для версии [OpenCart 2.2.x](https://github.com/esasby/hutkigrosh-opencart2.2-module)
+* Модуль интеграции для версии [OpenCart 1.5.x](https://github.com/esasby/hutkigrosh-opencart1.5-module)
+* Модуль интеграции для версии [OpenCart 2.1.x](https://github.com/esasby/hutkigrosh-opencart2.1-module)
+* Модуль интеграции для версии [OpenCart 2.2.x](https://github.com/esasby/hutkigrosh-opencart2.2-module)
 
 ### Требования ###
 1. PHP 5.6 и выше 
@@ -11,7 +11,7 @@
 
 ### Инструкция по установке:
 1. Создайте резервную копию вашего магазина и базы данных
-1. Установите модуль [cmsgate-opencart-hutkigrosh.ocmod.zip](https://bitbucket.esas.by/projects/CG/repos/cmsgate-opencart-hutkigrosh/browse/cmsgate-opencart-hutkigrosh.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
+1. Установите модуль [cmsgate-opencart-hutkigrosh.ocmod.zip](https://bitbucket.org/esasby/cmsgate-opencart-hutkigrosh/src/master/cmsgate-opencart-hutkigrosh.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
 1. Напротив модуля ХуткiГрош нажмите «Установить»
 
 ## Инструкция по настройке
