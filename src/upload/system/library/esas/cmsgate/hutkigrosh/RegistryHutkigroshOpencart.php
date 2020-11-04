@@ -9,10 +9,14 @@
 namespace esas\cmsgate\hutkigrosh;
 
 use esas\cmsgate\CmsConnectorOpencart;
+use esas\cmsgate\descriptors\ModuleDescriptor;
+use esas\cmsgate\descriptors\VendorDescriptor;
+use esas\cmsgate\descriptors\VersionDescriptor;
+use esas\cmsgate\epos\ConfigFieldsEpos;
 use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\admin\ManagedFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
+use esas\cmsgate\view\admin\AdminViewFields;
 use esas\cmsgate\view\admin\ConfigFormOpencart;
 use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigroshOpencart;
 use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
@@ -29,6 +33,7 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
     {
         $this->opencartRegistry = $opencartRegistry;
         $this->cmsConnector = new CmsConnectorOpencart($opencartRegistry);
+        $this->paysystemConnector = new PaysystemConnectorHutkigrosh();
     }
 
     /**
@@ -69,10 +74,11 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
 
     public function createConfigForm()
     {
-        $managedFieldsHutkigrosh = new ManagedFieldsHutkigrosh();
-        $managedFieldsHutkigrosh->addAllExcept([
+        $managedFields = $this->getManagedFieldsFactory()->getManagedFieldsExcept(AdminViewFields::CONFIG_FORM_COMMON, [
+            ConfigFieldsHutkigrosh::paymentMethodNameWebpay(),
+            ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay(),
             ConfigFieldsHutkigrosh::shopName()]);
-        return $this->cmsConnector->createCommonConfigForm($managedFieldsHutkigrosh);
+        return $this->cmsConnector->createCommonConfigForm($managedFields);
     }
 
     public function getCompletionPanel($orderWrapper)
@@ -89,17 +95,28 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
         return $this->opencartRegistry;
     }
 
-    function getUrlAlfaclick($orderId)
+    function getUrlAlfaclick($orderWrapper)
     {
         return SystemSettingsWrapperOpencart::getInstance()->linkCatalogExtension("alfaclick");
     }
 
-    function getUrlWebpay($orderId)
+    function getUrlWebpay($orderWrapper)
     {
-        $orderWrapper = RegistryHutkigroshOpencart::getRegistry()->getOrderWrapper($orderId);
         return SystemSettingsWrapperOpencart::getInstance()->linkCatalogExtension("pay")
             . "&" . RequestParamsHutkigrosh::ORDER_NUMBER . "=" . $orderWrapper->getOrderNumber()
             . "&" . RequestParamsHutkigrosh::BILL_ID . "=" . $orderWrapper->getExtId();
+    }
+
+    public function createModuleDescriptor()
+    {
+        return new ModuleDescriptor(
+            "esas_hutkigrosh",
+            new VersionDescriptor("1.12.0", "2020-11-03"),
+            "Прием платежей через ЕРИП (сервис Hutkigrosh})",
+            "https://bitbucket.esas.by/projects/CG/repos/cmsgate-opencart-hutkigrosh/browse",
+            VendorDescriptor::esas(),
+            "Выставление пользовательских счетов в ЕРИП"
+        );
     }
 
 }

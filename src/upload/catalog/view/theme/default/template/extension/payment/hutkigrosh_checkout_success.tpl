@@ -16,7 +16,7 @@
         <div id="content" class="<?php echo $class; ?>">
             <?php echo $content_top;
                     $completionPanel->render(); ?>
-            <div><a href="<?php echo $button_continue_link; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
+            <div><?php echo $buttonContinue; ?></div>
             <?php echo $content_bottom; ?>
         </div>
         <?php echo $column_right; ?>

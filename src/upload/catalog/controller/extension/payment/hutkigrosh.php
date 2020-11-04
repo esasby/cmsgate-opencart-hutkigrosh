@@ -52,8 +52,7 @@ class ControllerExtensionPaymentHutkiGrosh extends CatalogControllerExtensionPay
             $data['completionPanel'] = $completionPanel;
             $this->document->setTitle($this->language->get('heading_title'));
             $this->addCommon($data);
-            $data['button_continue_link'] = $this->url->link('checkout/success');
-            $this->i18n($data, ['button_continue']);
+            $this->addCheckoutContinueButton($data);
             $this->response->setOutput(
                 $this->load->view(
                     $this->getView("hutkigrosh_checkout_success"), $data));
