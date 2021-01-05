@@ -77,6 +77,7 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
         $managedFields = $this->getManagedFieldsFactory()->getManagedFieldsExcept(AdminViewFields::CONFIG_FORM_COMMON, [
             ConfigFieldsHutkigrosh::paymentMethodNameWebpay(),
             ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay(),
+            ConfigFieldsHutkigrosh::useOrderNumber(),
             ConfigFieldsHutkigrosh::shopName()]);
         return $this->cmsConnector->createCommonConfigForm($managedFields);
     }
@@ -111,7 +112,7 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
     {
         return new ModuleDescriptor(
             "esas_hutkigrosh",
-            new VersionDescriptor("1.12.0", "2020-11-03"),
+            new VersionDescriptor("1.13.0", "2020-12-04"),
             "Прием платежей через ЕРИП (сервис Hutkigrosh})",
             "https://bitbucket.esas.by/projects/CG/repos/cmsgate-opencart-hutkigrosh/browse",
             VendorDescriptor::esas(),
