@@ -22,7 +22,7 @@
   "require": {
     "php": ">= 5.6.0",
     "esas/cmsgate-hutkigrosh-lib": "~v1.13.7",
-    "esas/cmsgate-opencart-lib": "~v1.13.1"
+    "esas/cmsgate-opencart-lib": "~v1.13.2"
   },
   "autoload": {
     "psr-4": {
