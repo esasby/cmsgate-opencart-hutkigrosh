@@ -69,6 +69,8 @@ _Разработано и протестировано с OpenCart v.3.0.0.2_
     * upload\admin\controller\extension\payment
     * upload\admin\view\template\extension\payment
     * upload\catalog\controller\extension\payment
+    * upload\catalog\model\extension\payment
+    * upload\catalog\view\theme\default\template\extension\payment
     
     
 
