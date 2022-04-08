@@ -113,7 +113,7 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
         return new ModuleDescriptor(
             "esas_hutkigrosh",
             new VersionDescriptor("1.14.1", "2021-12-15"),
-            "Прием платежей через ЕРИП (сервис Hutkigrosh})",
+            "Прием платежей через ЕРИП (сервис Hutkigrosh)",
             "https://bitbucket.esas.by/projects/CG/repos/cmsgate-opencart-hutkigrosh/browse",
             VendorDescriptor::esas(),
             "Выставление пользовательских счетов в ЕРИП"
