@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAddBill;
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAlfaclick;
-use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshCompletionPage;
+use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshCompletionPanel;
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshNotify;
 use esas\cmsgate\hutkigrosh\RegistryHutkigroshOpencart;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
@@ -50,7 +50,7 @@ class ControllerPaymentHutkiGrosh extends CatalogControllerExtensionPayment
                 $controller = new ControllerHutkigroshAddBill();
                 $controller->process($orderWrapper);
             }
-            $controller = new ControllerHutkigroshCompletionPage();
+            $controller = new ControllerHutkigroshCompletionPanel();
             $completionPanel = $controller->process($orderId);
             $data['completionPanel'] = $completionPanel;
             $this->document->setTitle($this->language->get('heading_title'));
