@@ -19,21 +19,26 @@ use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
 use esas\cmsgate\view\admin\ConfigFormOpencart;
 use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigroshOpencart;
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO;
+use esas\cmsgate\hro\HROManager;
 use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
 
 class RegistryHutkigroshOpencart extends RegistryHutkigrosh
 {
-    private $opencartRegistry;
 
     /**
      * RegistryOpencart constructor.
-     * @param $opencartRegistry
      */
-    public function __construct($opencartRegistry)
+    public function __construct()
     {
-        $this->opencartRegistry = $opencartRegistry;
-        $this->cmsConnector = new CmsConnectorOpencart($opencartRegistry);
+        $this->cmsConnector = new CmsConnectorOpencart();
         $this->paysystemConnector = new PaysystemConnectorHutkigrosh();
+    }
+
+    public function init()
+    {
+        parent::init();
+        HROManager::fromRegistry()->addImplementation(CompletionPanelHutkigroshHRO::class, CompletionPanelHutkigroshOpencart::class);
     }
 
     /**
@@ -86,14 +91,6 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
     {
         $completionPanel = new CompletionPanelHutkigroshOpencart($orderWrapper);
         return $completionPanel;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOpencartRegistry()
-    {
-        return $this->opencartRegistry;
     }
 
     function getUrlAlfaclick($orderWrapper)

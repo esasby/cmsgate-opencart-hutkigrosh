@@ -15,7 +15,7 @@
                     $class = 'col-sm-12'; } ?>
         <div id="content" class="<?php echo $class; ?>">
             <?php echo $content_top;
-                    $completionPanel->render(); ?>
+                    $completionPanel->build(); ?>
             <div><?php echo $buttonContinue; ?></div>
             <?php echo $content_bottom; ?>
         </div>

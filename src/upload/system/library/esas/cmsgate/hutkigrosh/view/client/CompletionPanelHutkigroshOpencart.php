@@ -8,7 +8,9 @@
 
 namespace esas\cmsgate\hutkigrosh\view\client;
 
-class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigrosh
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO_v2;
+
+class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigroshHRO_v2
 {
     public function getCssClass4MsgSuccess()
     {

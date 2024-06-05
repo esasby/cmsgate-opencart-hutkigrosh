@@ -1,6 +1,3 @@
-<?php
-// Only for oc < 2.3 compatibility. Started from version 2.3. script was moved from 'payments' dir to 'extension/payments
-?>
 <?php use esas\hutkigrosh\view\client\ViewStyle;
     echo $header; ?>
 <div class="container">
@@ -18,7 +15,7 @@
                     $class = 'col-sm-12'; } ?>
         <div id="content" class="<?php echo $class; ?>">
             <?php echo $content_top;
-                    $completionPanel->build(); ?>
+                    $completionPanel->render(); ?>
             <div><?php echo $buttonContinue; ?></div>
             <?php echo $content_bottom; ?>
         </div>

@@ -3,7 +3,6 @@ require_once(dirname(__FILE__) . '/vendor/esas/cmsgate-core/src/esas/cmsgate/Cms
 use esas\cmsgate\CmsPlugin;
 use esas\cmsgate\hutkigrosh\RegistryHutkigroshOpencart;
 
-
-(new CmsPlugin(dirname(__FILE__) . '/vendor', dirname(dirname(dirname(dirname(__FILE__))))))
-    ->setRegistry(new RegistryHutkigroshOpencart(isset($registry) ? $registry : $this->registry))
+(new CmsPlugin(dirname(__FILE__) . '/vendor', dirname(__FILE__, 4)))
+    ->setRegistry(new RegistryHutkigroshOpencart())
     ->init();
