@@ -42,6 +42,13 @@ class Hutkigrosh extends CatalogControllerExtensionPayment
                 $this->response->redirect(SystemSettingsWrapperOpencart::getInstance()->linkCatalogCheckout());
                 return false;
             }
+            $orderWrapper = RegistryHutkigroshOpencart::getRegistry()->getOrderWrapper($orderId);
+            // проверяем, привязан ли к заказу billid, если да,
+            // то счет не выставляем, а просто прорисовываем старницу
+            if (empty($orderWrapper->getExtId())) {
+                $controller = new ControllerHutkigroshAddBill();
+                $controller->process($orderWrapper);
+            }
             $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
             if (!$configWrapper->isInstructionsSectionEnabled()
                 && !$configWrapper->isQRCodeSectionEnabled()
@@ -49,13 +56,6 @@ class Hutkigrosh extends CatalogControllerExtensionPayment
                 && !$configWrapper->isAlfaclickSectionEnabled()) {
                 $this->response->redirect(SystemSettingsWrapperOpencart::getInstance()->linkCatalogCheckoutSuccess());
                 return false;
-            }
-            $orderWrapper = RegistryHutkigroshOpencart::getRegistry()->getOrderWrapper($orderId);
-            // проверяем, привязан ли к заказу billid, если да,
-            // то счет не выставляем, а просто прорисовываем старницу
-            if (empty($orderWrapper->getExtId())) {
-                $controller = new ControllerHutkigroshAddBill();
-                $controller->process($orderWrapper);
             }
             $controller = new ControllerHutkigroshCompletionPanel();
             $data['completionPanel'] = $controller->process($orderId);

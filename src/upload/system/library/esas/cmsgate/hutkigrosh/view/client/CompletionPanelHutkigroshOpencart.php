@@ -73,5 +73,42 @@ class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigroshHRO_v2
         return dirname(__FILE__) . "/hiddenRadio.css";
     }
 
-
+    public function elementAlfaclickTabContent()
+    {
+        return
+            element::content(
+                element::div(
+                    attribute::clazz("row mb-3"),
+                    attribute::id("alfaclick_details"),
+                    element::label(
+                        attribute::forr("phone"),
+                        attribute::clazz("col-md-4 col-form-label"),
+                        element::content($this->getAlfaclickDetails())
+                    ),
+                    element::div(
+                        attribute::clazz("col-md-8"),
+                        element::input(
+                            attribute::id("billID"),
+                            attribute::type('hidden'),
+                            attribute::value($this->alfaclickBillId)),
+                        element::input(
+                            attribute::id("phone"),
+                            attribute::type('tel'),
+                            attribute::clazz($this->getCssClass4FormInput()),
+                            attribute::value($this->alfaclickPhone)
+                        )
+                    )
+                ),
+                element::div(
+                    attribute::clazz("text-end"),
+                    element::button(
+                        attribute::id("alfaclick_button"),
+                        attribute::clazz("hutkigrosh-button " . $this->getCssClass4Button()),
+                        attribute::type("button"),
+                        element::content($this->getAlfaclickButtonLabel())
+                    )
+                ),
+                element::includeFile(dirname(__FILE__) . "/alfaclickJs.php", ["completionPanel" => $this])
+            );
+    }
 }
