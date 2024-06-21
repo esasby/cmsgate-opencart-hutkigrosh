@@ -9,6 +9,10 @@
 namespace esas\cmsgate\hutkigrosh\view\client;
 
 use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO_v2;
+use esas\cmsgate\hro\accordions\AccordionTabHROFactory;
+use esas\cmsgate\utils\htmlbuilder\Attributes as attribute;
+use esas\cmsgate\utils\htmlbuilder\Elements as element;
+use esas\cmsgate\utils\OpencartVersion;
 
 class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigroshHRO_v2
 {
@@ -75,6 +79,7 @@ class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigroshHRO_v2
 
     public function elementAlfaclickTabContent()
     {
+        return parent::elementAlfaclickTabContent();
         return
             element::content(
                 element::div(
@@ -110,5 +115,112 @@ class CompletionPanelHutkigroshOpencart extends CompletionPanelHutkigroshHRO_v2
                 ),
                 element::includeFile(dirname(__FILE__) . "/alfaclickJs.php", ["completionPanel" => $this])
             );
+    }
+
+    public function build()
+    {
+        if (!$this->orderCanBePayed) {
+            return MessagesPanelHROFactory::findBuilder()->build();
+        }
+        $this->onlyOneTab = false;
+
+        switch (OpencartVersion::getVersion()) {
+            case OpencartVersion::v2_1_x:
+            case OpencartVersion::v2_3_x:
+            case OpencartVersion::v3_x:
+                return element::content(
+                    element::h4(
+                        attribute::clazz($this->getCssClass4CompletionTextDiv()),
+                        element::content($this->completionText)
+                    ),
+                    $this->elementTabs(),
+                    $this->addCss()
+                );
+            case OpencartVersion::v4_x:
+                return element::content(
+                    element::div(
+                        attribute::id("completion-text"),
+                        attribute::clazz($this->getCssClass4CompletionTextDiv()),
+                        element::content($this->completionText)
+                    ),
+                    $this->elementTabs(),
+                    $this->addCss()
+                );
+        }
+
+    }
+
+    protected function accordionBuilder()
+    {
+        return AccordionOpencartHROFactory::findBuilder();
+    }
+
+    public function elementTabs()
+    {
+        switch (OpencartVersion::getVersion()) {
+            case OpencartVersion::v2_1_x:
+            case OpencartVersion::v2_3_x:
+            case OpencartVersion::v3_x:
+                return element::div(
+                    attribute::id('accordion'),
+                    attribute::clazz('panel-group'),
+                    $this->elementInstructionsTab(),
+                    $this->elementQRCodeTab(),
+                    $this->elementWebpayTab(),
+                    $this->elementAlfaclickTab()
+                );
+            case OpencartVersion::v4_x:
+                $accordion = $this->accordionBuilder()
+                    ->setId(self::TABS_ID)
+                    ->addTab($this->elementInstructionsTab())
+                    ->addTab($this->elementQRCodeTab())
+                    ->addTab($this->elementWebpayTab())
+                    ->addTab($this->elementAlfaclickTab());
+                return $accordion->build();
+        }
+
+    }
+
+    public function elementTab($key, $header, $body, $selectable = true)
+    {
+        switch (OpencartVersion::getVersion()) {
+            case OpencartVersion::v2_1_x:
+            case OpencartVersion::v2_3_x:
+            case OpencartVersion::v3_x:
+                return element::div(
+                    attribute::clazz('panel panel-default'),
+                    element::div(
+                        attribute::clazz('panel-heading'),
+                        element::h4(
+                            attribute::clazz('panel-title'),
+                            element::a(
+                                attribute::href('#collapse-' . $key),
+                                attribute::clazz('accordion-toggle '),
+                                attribute::data_toggle('collapse'),
+                                attribute::data_parent('#accordion'),
+                                element::content($header),
+                                element::i(
+                                    attribute::clazz('fa fa-caret-down'),
+								)
+                            )
+                        )
+                    ),
+                    element::div(
+                        attribute::clazz('panel-collapse collapse' . ($this->isTabChecked($key) ? 'in' : '')),
+                        attribute::id('collapse-' . $key),
+                        element::div(
+                            attribute::clazz('panel-body'),
+                            element::content($body),
+						)
+                    )
+                );
+            case OpencartVersion::v4_x:
+                return AccordionTabHROFactory::findBuilder()
+                    ->setChecked($this->isTabChecked($key))
+                    ->setHeader($header)
+                    ->setBody($body)
+                    ->setKey($key);
+        }
+
     }
 }
