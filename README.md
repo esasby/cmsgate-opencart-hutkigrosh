@@ -21,8 +21,9 @@
     * Логин интернет-магазина – логин в системе ХуткiГрош.
     * Пароль интернет-магазина – пароль в системе ХуткiГрош.
     * Уникальный идентификатор услуги ЕРИП – ID ЕРИП услуги
-    * Код услуги – код услуги в деревер ЕРИП. Используется при генерации QR-кода
-    * Sandbox - перевод модуля в тестовый режим работы. В этом режиме счета выставляются в тестовую систему wwww.trial.hgrosh.by
+    * Код услуги – код услуги в дереве ЕРИП. Используется при генерации QR-кода
+    * Sandbox - перевод модуля в тестовый режим работы. В этом режиме счета выставляются в тестовую систему
+      wwww.trial.hgrosh.by
     * Email оповещение - включить информирование клиента по email при успешном выставлении счета (выполняется шлюзом Хуткiгрош)
     * Sms оповещение - включить информирование клиента по смс при успешном выставлении счета (выполняется шлюзом Хуткiгрош)
     * Путь в дереве ЕРИП - путь для оплаты счета в дереве ЕРИП, который будет показан клиенту после оформления заказа (например, Платежи > Магазин > Заказы)
@@ -39,7 +40,8 @@
 1. Сохраните изменения.
 
 ### Внимание!
-* Для автоматического обновления статуса заказа (после оплаты клиентом выставленного в ЕРИП счета) необходимо сообщить в службу технической поддержки сервиса «Хуткi Грош» адрес обработчика:
+* Для автоматического обновления статуса заказа (после оплаты клиентом выставленного в ЕРИП счета) необходимо сообщить в
+  службу технической поддержки сервиса «Хуткi Грош» адрес обработчика:
     * для версии oc 2.1
     ```
     http://mydomen.my/index.php?route=payment/hutkigrosh/notify
@@ -48,24 +50,43 @@
     ```
     http://mydomen.my/index.php?route=extension/payment/hutkigrosh/notify
     ```
-* Модуль ведет лог файл по пути _site_root/upload/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log_
-Для обеспечения **безопасности** необходимо убедиться, что в настройках http-сервера включена директива _AllowOverride All_ для корневой папки.
+    * Для версии oc >4.0
+    ```
+    http://mydomen.my/index.php?route=extension/cmsgate_opencart_hutkigrosh/payment/hutkigrosh.notify
+    ```
+* Модуль ведет лог файл по пути _
+  site_root/upload/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log_
+  Для обеспечения **безопасности** необходимо убедиться, что в настройках http-сервера включена директива _AllowOverride
+  All_ для корневой папки.
 
 ### Тестовые данные
+
 Для настрой оплаты в тестовом режиме
- * воспользуйтесь данными для подключения к тестовой системе, полученными при регистрации в ХуткiГрош
- * включите в настройках модуля режим "Песочницы" 
- * для эмуляции оплаты клиентом выставленного счета воспльзуйтесь личным кабинетом [тестовой системы](https://trial.hgrosh.by) (меню _Тест оплаты ЕРИП_)
-_Разработано и протестировано с OpenCart v.3.0.0.2_
+
+* воспользуйтесь данными для подключения к тестовой системе, полученными при регистрации в ХуткiГрош
+* включите в настройках модуля режим "Песочницы"
+* для эмуляции оплаты клиентом выставленного счета воспльзуйтесь личным
+  кабинетом [тестовой системы](https://trial.hgrosh.by) (меню _Тест оплаты ЕРИП_)
+  _Разработано и протестировано с OpenCart v.4.0.2.3_
 
 ### Инструкция по сборке
- * при сборке cmsgate-opencart-hutkigrosh.ocmod.zip (для OpenCart > v2.3) необходимо удалить каталоги
+
+* при сборке cmsgate_opencart_hutkigrosh.ocmod.zip (для OpenCart > v4.0) необходимо:
+
+- архивировать содержимое каталога \upload\
+- удалить каталоги
+    * admin\controller\extension\payment
+    * admin\view\template\extension\payment
+    * catalog\controller\extension\payment
+    * catalog\model\extension\payment
+    * catalog\view\theme\default\template\extension\payment
+* при сборке cmsgate-opencart-hutkigrosh.ocmod.zip (для OpenCart > v2.3) необходимо удалить каталоги
     * upload\admin\controller\payment
     * upload\admin\view\template\payment
     * upload\catalog\controller\payment
     * upload\catalog\model\payment
     * upload\catalog\view\theme\payment
- * при сборке cmsgate-opencart21-hutkigrosh.ocmod.zip (для OpenCart v2.1) необходимо удалить каталоги
+* при сборке cmsgate-opencart21-hutkigrosh.ocmod.zip (для OpenCart v2.1) необходимо удалить каталоги
     * upload\admin\controller\extension\payment
     * upload\admin\view\template\extension\payment
     * upload\catalog\controller\extension\payment

@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
+namespace Opencart\Catalog\Controller\Extension\CmsgateOpencartHutkigrosh\Payment;
 
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAddBill;
 use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshAlfaclick;
@@ -11,29 +11,28 @@ use esas\cmsgate\opencart\CatalogControllerExtensionPayment;
 use esas\cmsgate\utils\Logger;
 use esas\cmsgate\view\ViewBuilderOpencart;
 use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
+use esas\cmsgate\utils\OpencartVersion;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/system/library/esas/cmsgate/hutkigrosh/init.php');
+require_once(dirname(__FILE__, 4) . '/system/library/esas/cmsgate/hutkigrosh/init.php');
+
+header('Content-Type: text/html; charset=utf-8');
 
 /**
  * Only for oc < 2.3 compatibility. Started from version 2.3. script was moved from 'payments' dir to 'extension/payments
  */
-class ControllerPaymentHutkiGrosh extends CatalogControllerExtensionPayment
+class Hutkigrosh extends CatalogControllerExtensionPayment
 {
+
     public function index()
     {
         return parent::index();
     }
 
-    /**
-     * @param $data
-     * @param $orderWrapper
-     * @throws Throwable
-     */
     protected function addPaySystemIndexData(&$data, $orderWrapper)
-    {
+    { // убрано в CatalogControllerExtensionPayment
         $data['confirmOrderForm'] = ViewBuilderOpencart::elementConfirmOrderForm($orderWrapper);
     }
-
 
     public function pay()
     {
@@ -50,9 +49,17 @@ class ControllerPaymentHutkiGrosh extends CatalogControllerExtensionPayment
                 $controller = new ControllerHutkigroshAddBill();
                 $controller->process($orderWrapper);
             }
+            $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
+            if (!$configWrapper->isInstructionsSectionEnabled()
+                && !$configWrapper->isQRCodeSectionEnabled()
+                && !$configWrapper->isWebpaySectionEnabled()
+                && !$configWrapper->isAlfaclickSectionEnabled()) {
+                $this->response->redirect(SystemSettingsWrapperOpencart::getInstance()->linkCatalogCheckoutSuccess());
+                return false;
+            }
             $controller = new ControllerHutkigroshCompletionPanel();
-            $completionPanel = $controller->process($orderId);
-            $data['completionPanel'] = $completionPanel;
+            $data['completionPanel'] = $controller->process($orderId);
+            $data['old_style'] = in_array(OpencartVersion::getVersion(), array(OpencartVersion::v2_1_x, OpencartVersion::v2_3_x, OpencartVersion::v3_x)) ? true : false;
             $this->document->setTitle($this->language->get('heading_title'));
             $this->addCommon($data);
             $this->addCheckoutContinueButton($data);
@@ -91,7 +98,4 @@ class ControllerPaymentHutkiGrosh extends CatalogControllerExtensionPayment
             Logger::getLogger("notify")->error("Exception:", $e);
         }
     }
-
-
-
 }
