@@ -19,21 +19,26 @@ use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
 use esas\cmsgate\view\admin\ConfigFormOpencart;
 use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigroshOpencart;
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO;
+use esas\cmsgate\hro\HROManager;
 use esas\cmsgate\wrappers\SystemSettingsWrapperOpencart;
 
 class RegistryHutkigroshOpencart extends RegistryHutkigrosh
 {
-    private $opencartRegistry;
 
     /**
      * RegistryOpencart constructor.
-     * @param $opencartRegistry
      */
-    public function __construct($opencartRegistry)
+    public function __construct()
     {
-        $this->opencartRegistry = $opencartRegistry;
-        $this->cmsConnector = new CmsConnectorOpencart($opencartRegistry);
+        $this->cmsConnector = new CmsConnectorOpencart();
         $this->paysystemConnector = new PaysystemConnectorHutkigrosh();
+    }
+
+    public function init()
+    {
+        parent::init();
+        HROManager::fromRegistry()->addImplementation(CompletionPanelHutkigroshHRO::class, CompletionPanelHutkigroshOpencart::class);
     }
 
     /**
@@ -88,14 +93,6 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
         return $completionPanel;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOpencartRegistry()
-    {
-        return $this->opencartRegistry;
-    }
-
     function getUrlAlfaclick($orderWrapper)
     {
         return SystemSettingsWrapperOpencart::getInstance()->linkCatalogExtension("alfaclick");
@@ -112,9 +109,9 @@ class RegistryHutkigroshOpencart extends RegistryHutkigrosh
     {
         return new ModuleDescriptor(
             "esas_hutkigrosh",
-            new VersionDescriptor("1.17.0", "2022-04-11"),
+            new VersionDescriptor("2.0.0", "2024-06-18"),
             "Прием платежей через ЕРИП (сервис Hutkigrosh)",
-            "https://bitbucket.esas.by/projects/CG/repos/cmsgate-opencart-hutkigrosh/browse",
+            "https://github.com/esasby/cmsgate-opencart-hutkigrosh",
             VendorDescriptor::esas(),
             "Выставление пользовательских счетов в ЕРИП"
         );
