@@ -1,9 +1,9 @@
 ## Модуль интеграции с CMS OpenCart  (v2.3, v3.0)
 
 Данный модуль обеспечивает взаимодействие между интернет-магазином на базе CMS Opencart и сервисом платежей [ХуткiГрош](www.hutkigrosh.by)
-* Модуль интеграции для версии [OpenCart 1.5.x](https://github.com/esasby/hutkigrosh-opencart1.5-module)
-* Модуль интеграции для версии [OpenCart 2.1.x](https://github.com/esasby/hutkigrosh-opencart2.1-module)
-* Модуль интеграции для версии [OpenCart 2.2.x](https://github.com/esasby/hutkigrosh-opencart2.2-module)
+
+* Модуль интеграции для
+  версии [OpenCart 3.х.x](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh.ocmod.zip)
 
 ### Требования ###
 1. PHP 5.6 и выше 
@@ -11,7 +11,7 @@
 
 ### Инструкция по установке:
 1. Создайте резервную копию вашего магазина и базы данных
-1. Установите модуль [cmsgate-opencart-hutkigrosh.ocmod.zip](https://bitbucket.org/esasby/cmsgate-opencart-hutkigrosh/raw/master/cmsgate-opencart-hutkigrosh.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
+1. Установите модуль cmsgate-opencart-hutkigrosh.ocmod.zip с помощью _Модули_ -> _Установка расширений_
 1. Напротив модуля ХуткiГрош нажмите «Установить»
 
 ## Инструкция по настройке
@@ -34,7 +34,6 @@
     * Статус при ошибке оплаты счета - какой статус выставить заказу при ошибке выставленния счета (идентификатор существующего статуса)
     * Секция "Инструкция" - если включена, то на итоговом экране клиенту будет доступна пошаговая инструкция по оплате счета в ЕРИП
     * Секция QR-code - если включена, то на итоговом экране клиенту будет доступна оплата счета по QR-коду
-    * Секция Alfaclick - если включена, то на итоговом экране клиенту отобразится кнопка для выставления счета в Alfaclick
     * Секция Webpay - если включена, то на итоговом экране клиенту отобразится кнопка для оплаты счета картой (переход на Webpay)
     * Текст успешного выставления счета - текст, отображаемый кленту после успешного выставления счета. Может содержать html. В тексте допустимо ссылаться на переменные @order_id, @order_number, @order_total, @order_currency, @order_fullname, @order_phone, @order_address
 1. Сохраните изменения.
@@ -71,6 +70,8 @@
 
 ### Инструкция по сборке
 
+* возьмете уже собранный файл из папки v3 для Opencart v3.x.x
+* или используйте файл из корневого каталога
 * при сборке cmsgate_opencart_hutkigrosh.ocmod.zip (для OpenCart > v4.0) необходимо:
 
 - архивировать содержимое каталога \upload\
@@ -92,6 +93,11 @@
     * upload\catalog\controller\extension\payment
     * upload\catalog\model\extension\payment
     * upload\catalog\view\theme\default\template\extension\payment
-    
-    
 
+### Сборка плагина
+
+```
+> composer global require humbug/php-scoper
+> php-scoper add-prefix
+> composer dump-autoload --working-dir build --classmap-authoritative
+```
