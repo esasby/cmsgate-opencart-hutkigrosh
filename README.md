@@ -18,6 +18,8 @@
 
 Следите за анонсами о сроках отключения старого API и переходите на API v3 заранее (порядок перехода описан в разделе "[Одновременная работа и переход на API v3](#одновременная-работа-и-переход-на-api-v3)").
 
+## Скачать
+
 Для каждой версии OpenCart используется свой файл сборки (.ocmod.zip):
 
 | OpenCart | Сборка API v3 (рекомендуется) | Сборка предыдущего поколения |
@@ -28,16 +30,6 @@
 | 2.1 | нет | [v2/cmsgate-opencart21-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart21-hutkigrosh.ocmod.zip) |
 
 Отдельная сборка API v3 обусловлена сменой поколения API сервиса, а не изменениями OpenCart: внутри одной версии OpenCart обе сборки отличаются только поколением API.
-
-## Скачать
-
-- OpenCart 4.x, API v3 (рекомендуется): [v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip) (v3.0.1-oc4, проверено на OpenCart 4.1.0.4)
-- OpenCart 3.x, API v3 (рекомендуется): [v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip) (v3.0.0)
-- OpenCart 4.x, предыдущее поколение: [v4/cmsgate_opencart_hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh.ocmod.zip) (v2.0.4-oc4, проверено на OpenCart 4.1.0.4)
-- OpenCart 3.x, предыдущее поколение: [v3/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh.ocmod.zip) (v2.0.0)
-- OpenCart 2.3: [v2/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart-hutkigrosh.ocmod.zip)
-- OpenCart 2.1: [v2/cmsgate-opencart21-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart21-hutkigrosh.ocmod.zip)
-- Предыдущие релизы (файлы в папках версий): [2.0.3 для 3.x](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh_2.0.3.ocmod.zip), [3.0.0-apiv3 для 4.x (промежуточная)](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh_3.0.0-apiv3.ocmod.zip)
 
 ## Требования
 
