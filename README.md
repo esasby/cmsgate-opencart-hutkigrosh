@@ -20,12 +20,12 @@
 
 Для каждой версии OpenCart используется свой файл сборки (.ocmod.zip):
 
-| OpenCart | Сборка API v3 (рекомендуется) | Сборка предыдущего поколения | Важные изменения OpenCart, повлиявшие на модуль |
-|---|---|---|---|
-| 4.x | [v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip) | [v4/cmsgate_opencart_hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh.ocmod.zip) | Новая архитектура расширений: неймспейс-контроллеры (`Opencart\...\Extension\...`), установка в `extension/<код модуля>` по `install.json`, маршрут обработчика `.../payment/hutkigrosh.notify` вместо `.../payment/hutkigrosh/notify`, метод `getMethods()` вместо `getMethod()`, требуется PHP 8.0+ (исправления для log4php и tc-lib-barcode) |
-| 3.x | [v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip) | [v3/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh.ocmod.zip) | Новый установщик расширений (загрузка zip-архива с каталогом `upload/`), шаблоны Twig вместо php-шаблонов |
-| 2.3 | нет | [v2/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart-hutkigrosh.ocmod.zip) | Появились расширения: префикс маршрутов `extension/payment/...`, файлы модуля в `controller/extension/payment/`, изменился адрес обработчика уведомлений |
-| 2.1 | нет | [v2/cmsgate-opencart21-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart21-hutkigrosh.ocmod.zip) | Базовая структура без расширений: маршруты `payment/hutkigrosh/...`, файлы модуля в `controller/payment/` |
+| OpenCart | Сборка API v3 (рекомендуется) | Сборка предыдущего поколения |
+|---|---|---|
+| 4.x | [v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip) | [v4/cmsgate_opencart_hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh.ocmod.zip) |
+| 3.x | [v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip) | [v3/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh.ocmod.zip) |
+| 2.3 | нет | [v2/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart-hutkigrosh.ocmod.zip) |
+| 2.1 | нет | [v2/cmsgate-opencart21-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart21-hutkigrosh.ocmod.zip) |
 
 Отдельная сборка API v3 обусловлена сменой поколения API сервиса, а не изменениями OpenCart: внутри одной версии OpenCart обе сборки отличаются только поколением API.
 
