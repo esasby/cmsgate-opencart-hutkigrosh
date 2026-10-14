@@ -207,9 +207,9 @@
 Модуль ведет лог файл по пути (для обоих поколений API одинаковому):
 
 * OpenCart 4.x:
-  `<корень_сайта>/extension/cmsgate_opencart_hutkigrosh/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
+`<корень_сайта>/extension/cmsgate_opencart_hutkigrosh/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
 * OpenCart 2.x – 3.x:
-  `<корень_сайта>/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
+`<корень_сайта>/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
 
 Для обеспечения **безопасности** необходимо убедиться, что в настройках http-сервера включена директива `AllowOverride All` для корневой папки.
 
