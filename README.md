@@ -18,8 +18,6 @@
 
 Следите за анонсами о сроках отключения старого API и переходите на API v3 заранее (порядок перехода описан в разделе "[Одновременная работа и переход на API v3](#одновременная-работа-и-переход-на-api-v3)").
 
-## Скачать
-
 Для каждой версии OpenCart используется свой файл сборки (.ocmod.zip):
 
 | OpenCart | Сборка API v3 (рекомендуется) | Сборка предыдущего поколения |
@@ -30,6 +28,16 @@
 | 2.1 | нет | [v2/cmsgate-opencart21-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart21-hutkigrosh.ocmod.zip) |
 
 Отдельная сборка API v3 обусловлена сменой поколения API сервиса, а не изменениями OpenCart: внутри одной версии OpenCart обе сборки отличаются только поколением API.
+
+## Скачать
+
+- OpenCart 4.x, API v3 (рекомендуется): [v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh_apiv3.ocmod.zip) (v3.0.1-oc4, проверено на OpenCart 4.1.0.4)
+- OpenCart 3.x, API v3 (рекомендуется): [v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh-apiv3.ocmod.zip) (v3.0.0)
+- OpenCart 4.x, предыдущее поколение: [v4/cmsgate_opencart_hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh.ocmod.zip) (v2.0.4-oc4, проверено на OpenCart 4.1.0.4)
+- OpenCart 3.x, предыдущее поколение: [v3/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh.ocmod.zip) (v2.0.0)
+- OpenCart 2.3: [v2/cmsgate-opencart-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart-hutkigrosh.ocmod.zip)
+- OpenCart 2.1: [v2/cmsgate-opencart21-hutkigrosh.ocmod.zip](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v2/cmsgate-opencart21-hutkigrosh.ocmod.zip)
+- Предыдущие релизы (файлы в папках версий): [2.0.3 для 3.x](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v3/cmsgate-opencart-hutkigrosh_2.0.3.ocmod.zip), [3.0.0-apiv3 для 4.x (промежуточная)](https://github.com/esasby/cmsgate-opencart-hutkigrosh/blob/master/v4/cmsgate_opencart_hutkigrosh_3.0.0-apiv3.ocmod.zip)
 
 ## Требования
 
@@ -92,7 +100,7 @@
 * **Sms оповещение**: SMS клиенту при успешном выставлении счёта.
 
 **Способ оплаты для клиента:**
-* **Название способа оплаты** и **Описание способа оплаты**. Рекомендуется использовать значение `Через систему 'Расчет' (ЕРИП)` для Названия и Описания способа оплаты, так как это отображаемые пользователю данные. При необходимости меняйте значение в рамках шаблона.
+* **Название способа оплаты** и **Описание способа оплаты** (по умолчанию "Через систему 'Расчет' (ЕРИП)").
 
 ### Обязательно: адрес обработчика уведомлений
 
@@ -138,7 +146,7 @@
 **Основное:**
 * **Статус**: включен/выключен способ оплаты (стандартное поле расширения).
 * **Порядок сортировки**: позиция способа оплаты в списке при оформлении заказа.
-* **Путь в дереве ЕРИП**: путь, по которому клиент будет искать выставленный счёт (например, `АИС "Расчет" (ЕРИП) > Интернет-магазины/сервисы`).
+* **Путь в дереве ЕРИП**: путь, по которому клиент будет искать выставленный счёт (например, `АИС "Расчет" (ЕРИП) > Интернет-магазины/сервисы >`).
 * **Срок действия счета (дней)**: как долго счёт будет доступен в ЕРИП для оплаты.
 * **Debug mode**: расширенное логирование в файл cmsgate.log (используется при диагностике).
 
@@ -161,7 +169,7 @@
 * **Sms оповещение**: SMS клиенту при успешном выставлении счёта.
 
 **Способ оплаты для клиента:**
-* **Название способа оплаты** и **Описание способа оплаты**. Рекомендуется использовать значение `Через систему 'Расчет' (ЕРИП)` для Названия и Описания способа оплаты, так как это отображаемые пользователю данные. При необходимости меняйте значение в рамках шаблона.
+* **Название способа оплаты** и **Описание способа оплаты** (по умолчанию "Через систему 'Расчет' (ЕРИП)").
 
 Сохраните изменения.
 
@@ -191,33 +199,21 @@
 1. Установите сборку API v3 поверх предыдущей версии (порядок установки см. в разделе "Установка").
 1. В настройках модуля вставьте токен в поле "API Токен", нажмите "Загрузить данные" ("Актуализировать") и выберите значения в списках "Услуга", "Розничная торговая точка", "Кассовое место".
 1. Включите режим Sandbox и проверьте выставление и оплату счёта (эмуляция оплаты в личном кабинете тестовой системы, см. "Тестовый режим").
-1. Выключите Sandbox: счета будут выставляться в рабочую систему.
+1. Выключите Sandbox и вставьте токен выданный для рабочей системы в поле "API Токен", нажмите "Актуализировать" и выберите значения в списках "Услуга", "Розничная торговая точка", "Кассовое место": счета будут выставляться в рабочую систему.
 1. Проверьте обработчик уведомлений: статус заказа в магазине должен измениться после оплаты счёта.
 
 ## Логи
 
 Модуль ведет лог файл по пути (для обоих поколений API одинаковому):
 
-* OpenCart 4.x:
-`<корень_сайта>/extension/cmsgate_opencart_hutkigrosh/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
-* OpenCart 2.x – 3.x:
-`<корень_сайта>/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
+* OpenCart 4.x: `<корень_сайта>/extension/cmsgate_opencart_hutkigrosh/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
+* OpenCart 2.x – 3.x: `<корень_сайта>/system/library/esas/cmsgate/hutkigrosh/vendor/esas/cmsgate-core/logs/cmsgate.log`
 
 Для обеспечения **безопасности** необходимо убедиться, что в настройках http-сервера включена директива `AllowOverride All` для корневой папки.
 
 ## Поддержка
 
 По вопросам подключения и работы сервиса обращайтесь в службу технической поддержки [ХуткiГрош](https://hutkigrosh.by).
-
-## История изменений
-
-* 3.0.1-oc4 (API v3, OpenCart 4.x): имя модуля в списке расширений OpenCart 4 (Расширения > Оплата) изменено на «HutkiGrosh API v3»: обновлены `heading_title` в админ-локализациях (ru/be/en) и `name` в `install.json`. Имя применяется после обновления файлов расширения (переустановка из новой сборки).
-* 2.0.4-oc4 (API v1, OpenCart 4.x; пересборка без смены версии): имя модуля в списке расширений изменено на «ХуткиГрош (ЕРИП)»: обновлены `heading_title` в админ-локализациях (ru/be/en), `name` в `install.json` упрощено до «ХуткиГрош (ЕРИП)».
-* 3.0.0-oc4 (API v3, OpenCart 4.x): переход на API v3 сервиса ХуткiГрош: API-токен, справочники "Услуга/Розничная торговая точка/Кассовое место" с кэшированием и кнопкой "Актуализировать", QR-код и ссылка на оплату из API, уникальный номер счёта при коллизии. Проверено на тестовом sandbox (OpenCart 4.1.0.4).
-* 3.0.0 (API v3, OpenCart 3.x): переход на API v3 сервиса ХуткiГрош (API Токен, Услуга, Розничная торговая точка, Кассовое место).
-* 2.0.4-oc4: адаптация для OpenCart 4.x: namespace-контроллеры, поддержка `getMethods`, исправления для PHP 8.1+, локализации ru/be/en. Проверено на рабочем магазине (OpenCart 4.1.0.4).
-* 2.0.0: обновление cmsgate-core, сборка для OpenCart 3.x.
-* 1.18.0: сборки для OpenCart 2.1 / 2.3.
 
 ## Инструкция по сборке
 
